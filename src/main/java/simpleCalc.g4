@@ -28,7 +28,8 @@ expr	: expr '*' expr # Multiplication
 	| ID            # Variable
 	| '(' expr ')'  # Parenthesis
 	;
-	
+
+OPERATOR : ('*'|'/') ;
 NUM 	: ('0'..'9')+ ;
 ID	: ('A'..'Z')+ ;
 WHITESPACE : [ \n\t\r]+ -> skip;

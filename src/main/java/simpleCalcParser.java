@@ -16,7 +16,8 @@ public class simpleCalcParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, NUM=7, ID=8, WHITESPACE=9;
+		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, OPERATOR=7, NUM=8, ID=9, 
+		WHITESPACE=10;
 	public static final int
 		RULE_start = 0, RULE_expr = 1;
 	public static final String[] ruleNames = {
@@ -27,7 +28,7 @@ public class simpleCalcParser extends Parser {
 		null, "'*'", "'/'", "'+'", "'-'", "'('", "')'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
-		null, null, null, null, null, null, null, "NUM", "ID", "WHITESPACE"
+		null, null, null, null, null, null, null, "OPERATOR", "NUM", "ID", "WHITESPACE"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -433,17 +434,17 @@ public class simpleCalcParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\13$\4\2\t\2\4\3\t"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\f$\4\2\t\2\4\3\t"+
 		"\3\3\2\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3\21\n\3\3\3\3\3\3\3\3\3"+
 		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\7\3\37\n\3\f\3\16\3\"\13\3\3\3\2\3\4"+
 		"\4\2\4\2\2\2\'\2\6\3\2\2\2\4\20\3\2\2\2\6\7\5\4\3\2\7\b\7\2\2\3\b\3\3"+
-		"\2\2\2\t\n\b\3\1\2\n\21\7\t\2\2\13\21\7\n\2\2\f\r\7\7\2\2\r\16\5\4\3\2"+
-		"\16\17\7\b\2\2\17\21\3\2\2\2\20\t\3\2\2\2\20\13\3\2\2\2\20\f\3\2\2\2\21"+
-		" \3\2\2\2\22\23\f\t\2\2\23\24\7\3\2\2\24\37\5\4\3\n\25\26\f\b\2\2\26\27"+
-		"\7\4\2\2\27\37\5\4\3\t\30\31\f\7\2\2\31\32\7\5\2\2\32\37\5\4\3\b\33\34"+
-		"\f\6\2\2\34\35\7\6\2\2\35\37\5\4\3\7\36\22\3\2\2\2\36\25\3\2\2\2\36\30"+
-		"\3\2\2\2\36\33\3\2\2\2\37\"\3\2\2\2 \36\3\2\2\2 !\3\2\2\2!\5\3\2\2\2\""+
-		" \3\2\2\2\5\20\36 ";
+		"\2\2\2\t\n\b\3\1\2\n\21\7\n\2\2\13\21\7\13\2\2\f\r\7\7\2\2\r\16\5\4\3"+
+		"\2\16\17\7\b\2\2\17\21\3\2\2\2\20\t\3\2\2\2\20\13\3\2\2\2\20\f\3\2\2\2"+
+		"\21 \3\2\2\2\22\23\f\t\2\2\23\24\7\3\2\2\24\37\5\4\3\n\25\26\f\b\2\2\26"+
+		"\27\7\4\2\2\27\37\5\4\3\t\30\31\f\7\2\2\31\32\7\5\2\2\32\37\5\4\3\b\33"+
+		"\34\f\6\2\2\34\35\7\6\2\2\35\37\5\4\3\7\36\22\3\2\2\2\36\25\3\2\2\2\36"+
+		"\30\3\2\2\2\36\33\3\2\2\2\37\"\3\2\2\2 \36\3\2\2\2 !\3\2\2\2!\5\3\2\2"+
+		"\2\" \3\2\2\2\5\20\36 ";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
