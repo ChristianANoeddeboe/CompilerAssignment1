@@ -3,7 +3,7 @@ import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 import org.antlr.v4.runtime.CharStreams;
 import java.io.IOException;
-
+ 
 public class main {
     public static void main(String[] args) throws IOException{
 
@@ -48,37 +48,40 @@ public class main {
 
 class Interpreter extends AbstractParseTreeVisitor<Double> implements simpleCalcVisitor<Double> {
 
+    static Environment env=new Environment();
+    
     public Double visitStart(simpleCalcParser.StartContext ctx){
-	return visit(ctx.expr());
+	for(simpleCalcParser.AssignContext a : ctx.as ){
+	    visit(a);
+	}
+	return visit(ctx.e);
     };
 
+    public Double visitAssign(simpleCalcParser.AssignContext ctx){
+	Double d = visit( ctx.e);
+	env.setVariable(ctx.x.getText(),d);
+	return d;
+    } 
+
     public Double visitParenthesis(simpleCalcParser.ParenthesisContext ctx){
-	return visit(ctx.expr());
+	return visit(ctx.e);
     };
     
     public Double visitVariable(simpleCalcParser.VariableContext ctx){
-	System.out.println("Var");
-	System.err.println("Sorry, variables are not yet supported -- replacing by -1.0.\n");
-	return -1.0;
-    }
-
-	public Double visitMultiplication(simpleCalcParser.MultiplicationContext ctx){
-		return visit(ctx.expr(0))*visit(ctx.expr(1));
-	}
-
-	public Double visitDivision(simpleCalcParser.DivisionContext ctx) {
-		return visit(ctx.expr(0))/visit(ctx.expr(1));
-	}
+	return env.getVariable(ctx.x.getText());
+    };
     
     public Double visitAddition(simpleCalcParser.AdditionContext ctx){
-		return visit(ctx.expr(0))+visit(ctx.expr(1));
-    }
+	if (ctx.op.getText().equals("+"))
+	    return visit(ctx.e1)+visit(ctx.e2);
+	else return visit(ctx.e1)-visit(ctx.e2);
+    };
 
-	public Double visitSubtraction(simpleCalcParser.SubtractionContext ctx) {
-		return visit(ctx.expr(0))-visit(ctx.expr(1));
-	}
+    public Double visitMultiplication(simpleCalcParser.MultiplicationContext ctx){
+	return visit(ctx.e1)*visit(ctx.e2);
+    };
 
     public Double visitConstant(simpleCalcParser.ConstantContext ctx){
-		return Double.parseDouble(ctx.getText()); // new Double(ctx.NUM()); // Integer.parseInt(string);
-    }
+	return Double.parseDouble(ctx.n.getText()); // new Double(ctx.NUM()); // Integer.parseInt(string);
+    };
 }

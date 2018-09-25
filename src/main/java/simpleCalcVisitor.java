@@ -16,6 +16,12 @@ public interface simpleCalcVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStart(simpleCalcParser.StartContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link simpleCalcParser#assign}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAssign(simpleCalcParser.AssignContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code Parenthesis}
 	 * labeled alternative in {@link simpleCalcParser#expr}.
 	 * @param ctx the parse tree
@@ -44,24 +50,10 @@ public interface simpleCalcVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitVariable(simpleCalcParser.VariableContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Subtraction}
-	 * labeled alternative in {@link simpleCalcParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSubtraction(simpleCalcParser.SubtractionContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code Constant}
 	 * labeled alternative in {@link simpleCalcParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitConstant(simpleCalcParser.ConstantContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code Division}
-	 * labeled alternative in {@link simpleCalcParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitDivision(simpleCalcParser.DivisionContext ctx);
 }
