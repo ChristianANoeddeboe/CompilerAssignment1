@@ -16,6 +16,24 @@ public interface simpleCalcVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStart(simpleCalcParser.StartContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link simpleCalcParser#statseq}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStatseq(simpleCalcParser.StatseqContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link simpleCalcParser#stat}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStat(simpleCalcParser.StatContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link simpleCalcParser#loop}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLoop(simpleCalcParser.LoopContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link simpleCalcParser#assign}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -29,20 +47,6 @@ public interface simpleCalcVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitParenthesis(simpleCalcParser.ParenthesisContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Multiplication}
-	 * labeled alternative in {@link simpleCalcParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMultiplication(simpleCalcParser.MultiplicationContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code Addition}
-	 * labeled alternative in {@link simpleCalcParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAddition(simpleCalcParser.AdditionContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code Variable}
 	 * labeled alternative in {@link simpleCalcParser#expr}.
 	 * @param ctx the parse tree
@@ -50,10 +54,44 @@ public interface simpleCalcVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitVariable(simpleCalcParser.VariableContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code MulDiv}
+	 * labeled alternative in {@link simpleCalcParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMulDiv(simpleCalcParser.MulDivContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AddSub}
+	 * labeled alternative in {@link simpleCalcParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAddSub(simpleCalcParser.AddSubContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code Constant}
 	 * labeled alternative in {@link simpleCalcParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitConstant(simpleCalcParser.ConstantContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ifelse}
+	 * labeled alternative in {@link simpleCalcParser#cond}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIfelse(simpleCalcParser.IfelseContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code if}
+	 * labeled alternative in {@link simpleCalcParser#cond}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIf(simpleCalcParser.IfContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link simpleCalcParser#bool}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBool(simpleCalcParser.BoolContext ctx);
 }

@@ -3,42 +3,42 @@ import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 import org.antlr.v4.runtime.CharStreams;
 import java.io.IOException;
- 
+
 public class main {
-    public static void main(String[] args) throws IOException{
+	public static void main(String[] args) throws IOException{
 
-	// we expect exactly one argument: the name of the input file
-	if (args.length!=1) {
-	    System.err.println("\n");
-	    System.err.println("Simple calculator\n");
-	    System.err.println("=================\n\n");
-	    System.err.println("Please give as input argument a filename\n");
-	    System.exit(-1);
+		// we expect exactly one argument: the name of the input file
+		if (args.length!=1) {
+			System.err.println("\n");
+			System.err.println("Simple calculator\n");
+			System.err.println("=================\n\n");
+			System.err.println("Please give as input argument a filename\n");
+			System.exit(-1);
+		}
+		String filename=args[0];
+
+		// open the input file
+		CharStream input = CharStreams.fromFileName(filename);
+		//new ANTLRFileStream (filename); // depricated
+
+		// create a lexer/scanner
+		simpleCalcLexer lex = new simpleCalcLexer(input);
+
+		// get the stream of tokens from the scanner
+		CommonTokenStream tokens = new CommonTokenStream(lex);
+
+		// create a parser
+		simpleCalcParser parser = new simpleCalcParser(tokens);
+
+		// and parse anything from the grammar for "start"
+		ParseTree parseTree = parser.start();
+
+		// Construct an interpreter and run it on the parse tree
+		Interpreter interpreter = new Interpreter();
+		Double result=interpreter.visit(parseTree);
+
+		System.out.println("The result is: "+result);
 	}
-	String filename=args[0];
-
-	// open the input file
-	CharStream input = CharStreams.fromFileName(filename);
-	    //new ANTLRFileStream (filename); // depricated
-	
-	// create a lexer/scanner
-	simpleCalcLexer lex = new simpleCalcLexer(input);
-	
-	// get the stream of tokens from the scanner
-	CommonTokenStream tokens = new CommonTokenStream(lex);
-	
-	// create a parser
-	simpleCalcParser parser = new simpleCalcParser(tokens);
-	
-	// and parse anything from the grammar for "start"
-	ParseTree parseTree = parser.start();
-
-	// Construct an interpreter and run it on the parse tree
-	Interpreter interpreter = new Interpreter();
-	Double result=interpreter.visit(parseTree);
-	
-	System.out.println("The result is: "+result);
-    }
 }
 
 // We write an interpreter that implements interface
@@ -48,40 +48,138 @@ public class main {
 
 class Interpreter extends AbstractParseTreeVisitor<Double> implements simpleCalcVisitor<Double> {
 
-    static Environment env=new Environment();
-    
-    public Double visitStart(simpleCalcParser.StartContext ctx){
-	for(simpleCalcParser.AssignContext a : ctx.as ){
-	    visit(a);
+	static Environment env=new Environment();
+
+	public Double visitStart(simpleCalcParser.StartContext ctx){
+		return visit(ctx.sq);
 	}
-	return visit(ctx.e);
-    };
 
-    public Double visitAssign(simpleCalcParser.AssignContext ctx){
-	Double d = visit( ctx.e);
-	env.setVariable(ctx.x.getText(),d);
-	return d;
-    } 
+	public Double visitStatseq(simpleCalcParser.StatseqContext ctx) {
+		for (simpleCalcParser.StatContext stat: ctx.s) {
+			return visit(stat);
+		}
+		return null;
+	}
 
-    public Double visitParenthesis(simpleCalcParser.ParenthesisContext ctx){
-	return visit(ctx.e);
-    };
-    
-    public Double visitVariable(simpleCalcParser.VariableContext ctx){
-	return env.getVariable(ctx.x.getText());
-    };
-    
-    public Double visitAddition(simpleCalcParser.AdditionContext ctx){
-	if (ctx.op.getText().equals("+"))
-	    return visit(ctx.e1)+visit(ctx.e2);
-	else return visit(ctx.e1)-visit(ctx.e2);
-    };
+	public Double visitStat(simpleCalcParser.StatContext ctx) {
+		for(simpleCalcParser.AssignContext a : ctx.as ){
+			visit(a);
+		}
+		if(ctx.e != null) {
+			return visit(ctx.e);
+		}
+		if(ctx.c != null) {
+			return visit(ctx.c);
+		}
+		if(ctx.l != null) {
+			return visit(ctx.l);
+		}
+		return null;
+	}
 
-    public Double visitMultiplication(simpleCalcParser.MultiplicationContext ctx){
-	return visit(ctx.e1)*visit(ctx.e2);
-    };
+	public Double visitLoop(simpleCalcParser.LoopContext ctx) {
+		if(ctx.e != null && ctx.b != null) {
+			while(visit(ctx.e) != 0.0 || visit(ctx.b) != 0.0) {
+				visit(ctx.sq);
+			}
+		}
+		return null;
+	}
 
-    public Double visitConstant(simpleCalcParser.ConstantContext ctx){
-	return Double.parseDouble(ctx.n.getText()); // new Double(ctx.NUM()); // Integer.parseInt(string);
-    };
+	public Double visitAssign(simpleCalcParser.AssignContext ctx){
+		Double d = visit( ctx.e);
+		env.setVariable(ctx.x.getText(),d);
+		return d;
+	}
+
+	public Double visitParenthesis(simpleCalcParser.ParenthesisContext ctx){
+		return visit(ctx.e);
+	}
+
+	public Double visitVariable(simpleCalcParser.VariableContext ctx){
+		return env.getVariable(ctx.x.getText());
+	}
+
+	public Double visitMulDiv(simpleCalcParser.MulDivContext ctx) {
+		if (ctx.op.getText().equals("*"))
+			return visit(ctx.e1)*visit(ctx.e2);
+		else
+			return visit(ctx.e1)/visit(ctx.e2);
+	}
+
+	public Double visitAddSub(simpleCalcParser.AddSubContext ctx) {
+		if (ctx.op.getText().equals("+"))
+			return visit(ctx.e1)+visit(ctx.e2);
+		else
+			return visit(ctx.e1)-visit(ctx.e2);
+	}
+
+	public Double visitConstant(simpleCalcParser.ConstantContext ctx){
+		return Double.parseDouble(ctx.n.getText());
+	}
+
+	public Double visitIfelse(simpleCalcParser.IfelseContext ctx) {
+		if(visit(ctx.e) != null) {
+			if(visit(ctx.e).equals(0.0)) {
+				return visit(ctx.sq2);
+			} else {
+				return visit(ctx.sq1);
+			}
+		}
+		if(visit(ctx.b) != null) {
+			if(visit(ctx.e).equals(0.0)) {
+				return visit(ctx.sq2);
+			} else {
+				return visit(ctx.sq1);
+			}
+		}
+		return null;
+	}
+
+	public Double visitIf(simpleCalcParser.IfContext ctx) {
+		if(visit(ctx.e) != 0.0) {
+			return visit(ctx.sq);
+		}
+		return null;
+	}
+
+	public Double visitBool(simpleCalcParser.BoolContext ctx) {
+		if(ctx.b.getText().equals("==")) {
+			if(visit(ctx.e1).equals(visit(ctx.e2))) {
+				return 1.0;
+			}
+			return 0.0;
+		}
+		if(ctx.b.getText().equals("<")) {
+			if(visit(ctx.e1) < visit(ctx.e2)) {
+				return 1.0;
+			}
+			return 0.0;
+		}
+		if(ctx.b.getText().equals(">")) {
+			if(visit(ctx.e1) > visit(ctx.e2)) {
+				return 1.0;
+			}
+			return 0.0;
+		}
+		if(ctx.b.getText().equals("!=")) {
+			if(visit(ctx.e1).equals(visit(ctx.e2))) {
+				return 0.0;
+			}
+			return 1.0;
+		}
+		if(ctx.b.getText().equals("&&")) {
+			if(visit(ctx.e1).equals(0.0) || visit(ctx.e2).equals(0.0)) {
+				return 0.0;
+			}
+			return 1.0;
+		}
+		if(ctx.b.getText().equals("||")) {
+			if(visit(ctx.e1).equals(0.0) && visit(ctx.e2).equals(0.0)) {
+				return 0.0;
+			}
+			return 1.0;
+		}
+		return 0.0;
+	}
 }
