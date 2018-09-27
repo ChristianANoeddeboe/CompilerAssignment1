@@ -62,24 +62,9 @@ class Interpreter extends AbstractParseTreeVisitor<Double> implements simpleCalc
 		return null;
 	}
 
-	public Double visitStat(simpleCalcParser.StatContext ctx) {
-		if(ctx.e != null) {
-			return visit(ctx.e);
-		}
-		if(ctx.c != null) {
-			return visit(ctx.c);
-		}
-		if(ctx.l != null) {
-			return visit(ctx.l);
-		}
-		return null;
-	}
-
 	public Double visitLoop(simpleCalcParser.LoopContext ctx) {
-		if(ctx.e != null && ctx.b != null) {
-			while(visit(ctx.e) != 0.0 || visit(ctx.b) != 0.0) {
-				visit(ctx.sq);
-			}
+		while(visit(ctx.e) != 0.0) {
+			visit(ctx.sq);
 		}
 		return null;
 	}
@@ -99,10 +84,25 @@ class Interpreter extends AbstractParseTreeVisitor<Double> implements simpleCalc
 	}
 
 	public Double visitOr(simpleCalcParser.OrContext ctx) {
-		return null;
+		if(visit(ctx.e1).equals(0.0) || visit(ctx.e2).equals(0.0)) {
+			return 1.0;
+		}
+		return 0.0;
 	}
 
 	public Double visitBigSmall(simpleCalcParser.BigSmallContext ctx) {
+		if(ctx.b.getText().equals("<")) {
+			if(visit(ctx.e1) < visit(ctx.e2)) {
+				return 1.0;
+			}
+			return 0.0;
+		}
+		if(ctx.b.getText().equals(">")) {
+			if(visit(ctx.e1) > visit(ctx.e2)) {
+				return 1.0;
+			}
+			return 0.0;
+		}
 		return null;
 	}
 
@@ -125,53 +125,15 @@ class Interpreter extends AbstractParseTreeVisitor<Double> implements simpleCalc
 	}
 
 	public Double visitAnd(simpleCalcParser.AndContext ctx) {
-		return null;
+		if(visit(ctx.e1).equals(0.0) && visit(ctx.e2).equals(0.0)) {
+			return 1.0;
+		}
+		return 0.0;
 	}
 
 	public Double visitEqualNot(simpleCalcParser.EqualNotContext ctx) {
-		return null;
-	}
-
-	public Double visitIfelse(simpleCalcParser.IfelseContext ctx) {
-		if(visit(ctx.e) != null) {
-			if(visit(ctx.e).equals(0.0)) {
-				return visit(ctx.sq2);
-			} else {
-				return visit(ctx.sq1);
-			}
-		}
-		if(visit(ctx.b) != null) {
-			if(visit(ctx.e).equals(0.0)) {
-				return visit(ctx.sq2);
-			} else {
-				return visit(ctx.sq1);
-			}
-		}
-		return null;
-	}
-
-	public Double visitIf(simpleCalcParser.IfContext ctx) {
-		if(visit(ctx.e) != 0.0) {
-			return visit(ctx.sq);
-		}
-		return null;
-	}
-
-	public Double visitBool(simpleCalcParser.BoolContext ctx) {
 		if(ctx.b.getText().equals("==")) {
 			if(visit(ctx.e1).equals(visit(ctx.e2))) {
-				return 1.0;
-			}
-			return 0.0;
-		}
-		if(ctx.b.getText().equals("<")) {
-			if(visit(ctx.e1) < visit(ctx.e2)) {
-				return 1.0;
-			}
-			return 0.0;
-		}
-		if(ctx.b.getText().equals(">")) {
-			if(visit(ctx.e1) > visit(ctx.e2)) {
 				return 1.0;
 			}
 			return 0.0;
@@ -182,18 +144,21 @@ class Interpreter extends AbstractParseTreeVisitor<Double> implements simpleCalc
 			}
 			return 1.0;
 		}
-		if(ctx.b.getText().equals("&&")) {
-			if(visit(ctx.e1).equals(0.0) || visit(ctx.e2).equals(0.0)) {
-				return 0.0;
-			}
-			return 1.0;
+		return null;
+	}
+
+	public Double visitIfelse(simpleCalcParser.IfelseContext ctx) {
+		if(visit(ctx.e).equals(0.0)) {
+			return visit(ctx.sq2);
+		} else {
+			return visit(ctx.sq1);
 		}
-		if(ctx.b.getText().equals("||")) {
-			if(visit(ctx.e1).equals(0.0) && visit(ctx.e2).equals(0.0)) {
-				return 0.0;
-			}
-			return 1.0;
+	}
+
+	public Double visitIf(simpleCalcParser.IfContext ctx) {
+		if(visit(ctx.e) != 0.0) {
+			return visit(ctx.sq);
 		}
-		return 0.0;
+		return null;
 	}
 }
