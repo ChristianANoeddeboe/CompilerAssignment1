@@ -39,13 +39,37 @@ public class simpleCalcBaseListener implements simpleCalcListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStat(simpleCalcParser.StatContext ctx) { }
+	@Override public void enterAssign(simpleCalcParser.AssignContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStat(simpleCalcParser.StatContext ctx) { }
+	@Override public void exitAssign(simpleCalcParser.AssignContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIfelse(simpleCalcParser.IfelseContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIfelse(simpleCalcParser.IfelseContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIf(simpleCalcParser.IfContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIf(simpleCalcParser.IfContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -58,18 +82,6 @@ public class simpleCalcBaseListener implements simpleCalcListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitLoop(simpleCalcParser.LoopContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterAssign(simpleCalcParser.AssignContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitAssign(simpleCalcParser.AssignContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -94,6 +106,30 @@ public class simpleCalcBaseListener implements simpleCalcListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitVariable(simpleCalcParser.VariableContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterOr(simpleCalcParser.OrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOr(simpleCalcParser.OrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBigSmall(simpleCalcParser.BigSmallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBigSmall(simpleCalcParser.BigSmallContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -135,37 +171,25 @@ public class simpleCalcBaseListener implements simpleCalcListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIfelse(simpleCalcParser.IfelseContext ctx) { }
+	@Override public void enterAnd(simpleCalcParser.AndContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIfelse(simpleCalcParser.IfelseContext ctx) { }
+	@Override public void exitAnd(simpleCalcParser.AndContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIf(simpleCalcParser.IfContext ctx) { }
+	@Override public void enterEqualNot(simpleCalcParser.EqualNotContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIf(simpleCalcParser.IfContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterBool(simpleCalcParser.BoolContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBool(simpleCalcParser.BoolContext ctx) { }
+	@Override public void exitEqualNot(simpleCalcParser.EqualNotContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

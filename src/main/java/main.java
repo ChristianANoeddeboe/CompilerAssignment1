@@ -51,15 +51,13 @@ class Interpreter extends AbstractParseTreeVisitor<Double> implements simpleCalc
 	static Environment env=new Environment();
 
 	public Double visitStart(simpleCalcParser.StartContext ctx){
-		return visit(ctx.sq);
+		visit(ctx.sq);
+		return visit(ctx.e);
 	}
 
 	public Double visitStatseq(simpleCalcParser.StatseqContext ctx) {
-		for (simpleCalcParser.AssignContext stat: ctx.as) {
-			visit(stat);
-		}
 		for (simpleCalcParser.StatContext stat: ctx.s) {
-			return visit(stat);
+			visit(stat);
 		}
 		return null;
 	}
@@ -100,6 +98,14 @@ class Interpreter extends AbstractParseTreeVisitor<Double> implements simpleCalc
 		return env.getVariable(ctx.x.getText());
 	}
 
+	public Double visitOr(simpleCalcParser.OrContext ctx) {
+		return null;
+	}
+
+	public Double visitBigSmall(simpleCalcParser.BigSmallContext ctx) {
+		return null;
+	}
+
 	public Double visitMulDiv(simpleCalcParser.MulDivContext ctx) {
 		if (ctx.op.getText().equals("*"))
 			return visit(ctx.e1)*visit(ctx.e2);
@@ -116,6 +122,14 @@ class Interpreter extends AbstractParseTreeVisitor<Double> implements simpleCalc
 
 	public Double visitConstant(simpleCalcParser.ConstantContext ctx){
 		return Double.parseDouble(ctx.n.getText());
+	}
+
+	public Double visitAnd(simpleCalcParser.AndContext ctx) {
+		return null;
+	}
+
+	public Double visitEqualNot(simpleCalcParser.EqualNotContext ctx) {
+		return null;
 	}
 
 	public Double visitIfelse(simpleCalcParser.IfelseContext ctx) {

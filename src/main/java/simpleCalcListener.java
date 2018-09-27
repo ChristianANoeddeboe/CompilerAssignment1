@@ -27,35 +27,53 @@ public interface simpleCalcListener extends ParseTreeListener {
 	 */
 	void exitStatseq(simpleCalcParser.StatseqContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link simpleCalcParser#stat}.
-	 * @param ctx the parse tree
-	 */
-	void enterStat(simpleCalcParser.StatContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link simpleCalcParser#stat}.
-	 * @param ctx the parse tree
-	 */
-	void exitStat(simpleCalcParser.StatContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link simpleCalcParser#loop}.
-	 * @param ctx the parse tree
-	 */
-	void enterLoop(simpleCalcParser.LoopContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link simpleCalcParser#loop}.
-	 * @param ctx the parse tree
-	 */
-	void exitLoop(simpleCalcParser.LoopContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link simpleCalcParser#assign}.
+	 * Enter a parse tree produced by the {@code assign}
+	 * labeled alternative in {@link simpleCalcParser#stat}.
 	 * @param ctx the parse tree
 	 */
 	void enterAssign(simpleCalcParser.AssignContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link simpleCalcParser#assign}.
+	 * Exit a parse tree produced by the {@code assign}
+	 * labeled alternative in {@link simpleCalcParser#stat}.
 	 * @param ctx the parse tree
 	 */
 	void exitAssign(simpleCalcParser.AssignContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ifelse}
+	 * labeled alternative in {@link simpleCalcParser#stat}.
+	 * @param ctx the parse tree
+	 */
+	void enterIfelse(simpleCalcParser.IfelseContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ifelse}
+	 * labeled alternative in {@link simpleCalcParser#stat}.
+	 * @param ctx the parse tree
+	 */
+	void exitIfelse(simpleCalcParser.IfelseContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code if}
+	 * labeled alternative in {@link simpleCalcParser#stat}.
+	 * @param ctx the parse tree
+	 */
+	void enterIf(simpleCalcParser.IfContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code if}
+	 * labeled alternative in {@link simpleCalcParser#stat}.
+	 * @param ctx the parse tree
+	 */
+	void exitIf(simpleCalcParser.IfContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code loop}
+	 * labeled alternative in {@link simpleCalcParser#stat}.
+	 * @param ctx the parse tree
+	 */
+	void enterLoop(simpleCalcParser.LoopContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code loop}
+	 * labeled alternative in {@link simpleCalcParser#stat}.
+	 * @param ctx the parse tree
+	 */
+	void exitLoop(simpleCalcParser.LoopContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code Parenthesis}
 	 * labeled alternative in {@link simpleCalcParser#expr}.
@@ -80,6 +98,30 @@ public interface simpleCalcListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitVariable(simpleCalcParser.VariableContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Or}
+	 * labeled alternative in {@link simpleCalcParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterOr(simpleCalcParser.OrContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Or}
+	 * labeled alternative in {@link simpleCalcParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitOr(simpleCalcParser.OrContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code BigSmall}
+	 * labeled alternative in {@link simpleCalcParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterBigSmall(simpleCalcParser.BigSmallContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code BigSmall}
+	 * labeled alternative in {@link simpleCalcParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitBigSmall(simpleCalcParser.BigSmallContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code MulDiv}
 	 * labeled alternative in {@link simpleCalcParser#expr}.
@@ -117,37 +159,27 @@ public interface simpleCalcListener extends ParseTreeListener {
 	 */
 	void exitConstant(simpleCalcParser.ConstantContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code ifelse}
-	 * labeled alternative in {@link simpleCalcParser#cond}.
+	 * Enter a parse tree produced by the {@code And}
+	 * labeled alternative in {@link simpleCalcParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterIfelse(simpleCalcParser.IfelseContext ctx);
+	void enterAnd(simpleCalcParser.AndContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code ifelse}
-	 * labeled alternative in {@link simpleCalcParser#cond}.
+	 * Exit a parse tree produced by the {@code And}
+	 * labeled alternative in {@link simpleCalcParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitIfelse(simpleCalcParser.IfelseContext ctx);
+	void exitAnd(simpleCalcParser.AndContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code if}
-	 * labeled alternative in {@link simpleCalcParser#cond}.
+	 * Enter a parse tree produced by the {@code EqualNot}
+	 * labeled alternative in {@link simpleCalcParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterIf(simpleCalcParser.IfContext ctx);
+	void enterEqualNot(simpleCalcParser.EqualNotContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code if}
-	 * labeled alternative in {@link simpleCalcParser#cond}.
+	 * Exit a parse tree produced by the {@code EqualNot}
+	 * labeled alternative in {@link simpleCalcParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitIf(simpleCalcParser.IfContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link simpleCalcParser#bool}.
-	 * @param ctx the parse tree
-	 */
-	void enterBool(simpleCalcParser.BoolContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link simpleCalcParser#bool}.
-	 * @param ctx the parse tree
-	 */
-	void exitBool(simpleCalcParser.BoolContext ctx);
+	void exitEqualNot(simpleCalcParser.EqualNotContext ctx);
 }

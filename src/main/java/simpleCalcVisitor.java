@@ -22,23 +22,33 @@ public interface simpleCalcVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStatseq(simpleCalcParser.StatseqContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link simpleCalcParser#stat}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitStat(simpleCalcParser.StatContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link simpleCalcParser#loop}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitLoop(simpleCalcParser.LoopContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link simpleCalcParser#assign}.
+	 * Visit a parse tree produced by the {@code assign}
+	 * labeled alternative in {@link simpleCalcParser#stat}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitAssign(simpleCalcParser.AssignContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ifelse}
+	 * labeled alternative in {@link simpleCalcParser#stat}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIfelse(simpleCalcParser.IfelseContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code if}
+	 * labeled alternative in {@link simpleCalcParser#stat}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIf(simpleCalcParser.IfContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code loop}
+	 * labeled alternative in {@link simpleCalcParser#stat}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLoop(simpleCalcParser.LoopContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code Parenthesis}
 	 * labeled alternative in {@link simpleCalcParser#expr}.
@@ -53,6 +63,20 @@ public interface simpleCalcVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitVariable(simpleCalcParser.VariableContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Or}
+	 * labeled alternative in {@link simpleCalcParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOr(simpleCalcParser.OrContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code BigSmall}
+	 * labeled alternative in {@link simpleCalcParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBigSmall(simpleCalcParser.BigSmallContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code MulDiv}
 	 * labeled alternative in {@link simpleCalcParser#expr}.
@@ -75,23 +99,17 @@ public interface simpleCalcVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitConstant(simpleCalcParser.ConstantContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ifelse}
-	 * labeled alternative in {@link simpleCalcParser#cond}.
+	 * Visit a parse tree produced by the {@code And}
+	 * labeled alternative in {@link simpleCalcParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIfelse(simpleCalcParser.IfelseContext ctx);
+	T visitAnd(simpleCalcParser.AndContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code if}
-	 * labeled alternative in {@link simpleCalcParser#cond}.
+	 * Visit a parse tree produced by the {@code EqualNot}
+	 * labeled alternative in {@link simpleCalcParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIf(simpleCalcParser.IfContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link simpleCalcParser#bool}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBool(simpleCalcParser.BoolContext ctx);
+	T visitEqualNot(simpleCalcParser.EqualNotContext ctx);
 }
