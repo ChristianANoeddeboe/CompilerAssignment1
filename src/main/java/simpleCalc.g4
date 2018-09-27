@@ -2,9 +2,11 @@ grammar simpleCalc;
  
 start   : sq=statseq EOF  ;
 
-statseq : '{' s+=stat* '}' ;
+statseq : '{' as+=assign* s+=stat* '}' ;
 
-stat    : as+=assign* (e=expr';'|c=cond|l=loop)
+stat    : e=expr';'
+        | c=cond
+        | l=loop
         ;
 
 loop    : 'while(' (e=expr|b=bool) ')' sq=statseq

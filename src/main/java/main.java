@@ -55,6 +55,9 @@ class Interpreter extends AbstractParseTreeVisitor<Double> implements simpleCalc
 	}
 
 	public Double visitStatseq(simpleCalcParser.StatseqContext ctx) {
+		for (simpleCalcParser.AssignContext stat: ctx.as) {
+			visit(stat);
+		}
 		for (simpleCalcParser.StatContext stat: ctx.s) {
 			return visit(stat);
 		}
@@ -62,9 +65,6 @@ class Interpreter extends AbstractParseTreeVisitor<Double> implements simpleCalc
 	}
 
 	public Double visitStat(simpleCalcParser.StatContext ctx) {
-		for(simpleCalcParser.AssignContext a : ctx.as ){
-			visit(a);
-		}
 		if(ctx.e != null) {
 			return visit(ctx.e);
 		}
