@@ -125,7 +125,7 @@ class Interpreter extends AbstractParseTreeVisitor<Double> implements simpleCalc
 	}
 
 	public Double visitAnd(simpleCalcParser.AndContext ctx) {
-		if(visit(ctx.e1).equals(0.0) && visit(ctx.e2).equals(0.0)) {
+		if(visit(ctx.e1).equals(1.0) && visit(ctx.e2).equals(1.0)) {
 			return 1.0;
 		}
 		return 0.0;
