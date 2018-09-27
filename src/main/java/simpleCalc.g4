@@ -1,6 +1,6 @@
 grammar simpleCalc;
  
-start   : sq=statseq e=expr EOF  ;
+start   : sq=statseq e=expr ';' EOF  ;
 
 statseq : '{' s+=stat* '}' ;
 
