@@ -75,6 +75,18 @@ public interface simpleCalcListener extends ParseTreeListener {
 	 */
 	void exitLoop(simpleCalcParser.LoopContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code Not}
+	 * labeled alternative in {@link simpleCalcParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterNot(simpleCalcParser.NotContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Not}
+	 * labeled alternative in {@link simpleCalcParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitNot(simpleCalcParser.NotContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code Parenthesis}
 	 * labeled alternative in {@link simpleCalcParser#expr}.
 	 * @param ctx the parse tree

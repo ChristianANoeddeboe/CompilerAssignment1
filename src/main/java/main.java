@@ -69,6 +69,13 @@ class Interpreter extends AbstractParseTreeVisitor<Double> implements simpleCalc
 		return null;
 	}
 
+	public Double visitNot(simpleCalcParser.NotContext ctx) {
+		if(visit(ctx.e).equals(0.0)) {
+			return 1.0;
+		}
+		return 0.0;
+	}
+
 	public Double visitAssign(simpleCalcParser.AssignContext ctx){
 		Double d = visit( ctx.e);
 		env.setVariable(ctx.x.getText(),d);

@@ -10,7 +10,8 @@ stat    : x=ID '=' e=expr ';'                              # assign
         | 'while(' e=expr ')' sq=statseq                   # loop
         ;
 
-expr	: <assoc=left> e1=expr op=OPERATORLVL1 e2=expr              # MulDiv
+expr	: <assoc=right> '!' e=expr                                  # Not
+        | <assoc=left> e1=expr op=OPERATORLVL1 e2=expr              # MulDiv
         | <assoc=left> e1=expr op=OPERATORLVL2 e2=expr              # AddSub
 	    | n=NUM  	                                                # Constant
 	    | x=ID                                                      # Variable
